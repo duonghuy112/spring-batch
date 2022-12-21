@@ -2,7 +2,10 @@ package com.huynguyen.springbatch.configuration;
 
 import com.huynguyen.springbatch.listener.FirstJobListener;
 import com.huynguyen.springbatch.listener.FirstStepListener;
+import com.huynguyen.springbatch.processor.FirstItemProcessor;
+import com.huynguyen.springbatch.reader.FirstItemReader;
 import com.huynguyen.springbatch.service.ThirdTasklet;
+import com.huynguyen.springbatch.writer.FirstItemWriter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -23,8 +26,11 @@ public class SampleJob {
     private final ThirdTasklet thirdTasklet;
     private final FirstJobListener firstJobListener;
     private final FirstStepListener firstStepListener;
+    private final FirstItemReader firstItemReader;
+    private final FirstItemProcessor firstItemProcessor;
+    private final FirstItemWriter firstItemWriter;
 
-    @Bean
+    //@Bean
     public Job firstJob() {
         return jobBuilderFactory.get("First Job")
                 .start(firstStep())
@@ -66,6 +72,24 @@ public class SampleJob {
     private Step thirdStep() {
         return stepBuilderFactory.get("Third Step")
                 .tasklet(thirdTasklet)
+                .build();
+    }
+
+    @Bean
+    public Job secondJob() {
+        return jobBuilderFactory.get("Second Job")
+                .incrementer(new RunIdIncrementer())
+                .start(firstChuckStep())
+                .next(firstStep())
+                .build();
+    }
+
+    private Step firstChuckStep() {
+        return stepBuilderFactory.get("First Chunk Step")
+                .<Integer, Long>chunk(3)
+                .reader(firstItemReader)
+                .processor(firstItemProcessor)
+                .writer(firstItemWriter)
                 .build();
     }
 }
