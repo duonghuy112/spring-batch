@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "firstName": "Nguyen",
+    "lastName": "Huy",
+    "email": "huy@mail.com"
+  },
+  {
+    "id": 2,
+    "firstName": "Le",
+    "lastName": "Ngan",
+    "email": "ngan@mail.com"
+  },
+  {
+    "id": 3,
+    "firstName": "Phan",
+    "lastName": "Quyen",
+    "email": "quyen@mail.com"
+  },
+  {
+    "id": 4,
+    "firstName": "Vo",
+    "lastName": "Quang",
+    "email": "quang@mail.com"
+  },
+  {
+    "id": 5,
+    "firstName": "Huynh",
+    "lastName": "Si",
+    "email": "si@mail.com"
+  }
+]
