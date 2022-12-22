@@ -30,7 +30,7 @@ public class SampleJob {
     private final FirstItemProcessor firstItemProcessor;
     private final FirstItemWriter firstItemWriter;
 
-    //@Bean
+    @Bean
     public Job firstJob() {
         return jobBuilderFactory.get("First Job")
                 .start(firstStep())
